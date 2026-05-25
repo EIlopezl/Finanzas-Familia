@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gastos F.L.B 2026 PRO</title>
+<style>
+:root{
+  --red:#b91c1c;--red2:#dc2626;--red3:#fee2e2;--dark:#1f2937;--muted:#6b7280;
+  --bg:#fff5f5;--card:#ffffff;--line:#fecaca;--soft:#fff1f2;--ok:#15803d;--warn:#b45309;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#fff,#fff5f5 45%,#fee2e2);color:var(--dark)}
+button,input,select{font:inherit}
+button{border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-1px);filter:brightness(.98)}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fff}
+label{display:block;font-weight:800;margin:12px 0 6px;color:#7f1d1d}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login-card{width:min(440px,100%);background:white;border-radius:28px;box-shadow:0 30px 70px rgba(185,28,28,.18);padding:32px;border:1px solid var(--line)}
+.logo{width:78px;height:78px;border-radius:24px;background:linear-gradient(135deg,var(--red),#ef4444);display:grid;place-items:center;color:white;font-size:28px;font-weight:950;margin:0 auto 16px;box-shadow:0 14px 30px rgba(220,38,38,.25)}
+h1,h2,h3{margin-top:0}
+.login h1{text-align:center;margin-bottom:6px;color:#7f1d1d}
+.sub{text-align:center;color:var(--muted);margin-bottom:22px}
+.primary{background:linear-gradient(135deg,var(--red),var(--red2));color:white}
+.danger{background:#991b1b;color:white}
+.dark{background:#374151;color:white}
+.light{background:white;color:#991b1b;border:1px solid var(--line)}
+.green{background:#15803d;color:white}
+.yellow{background:#f59e0b;color:#111827}
+.full{width:100%;margin-top:15px}
+.app{display:none}
+header{background:linear-gradient(135deg,#7f1d1d,#dc2626);color:white;padding:22px 18px;box-shadow:0 14px 35px rgba(185,28,28,.22)}
+.header-inner{max-width:1320px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.header-inner h1{margin:0;font-size:27px} .header-inner p{margin:5px 0 0;color:#fee2e2}
+main{max-width:1320px;margin:22px auto;padding:0 16px 45px}
+.notice{padding:14px 16px;border-radius:16px;margin-bottom:16px;font-weight:900}
+.ok{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.warn{background:#ffedd5;color:#9a3412;border:1px solid #fdba74}
+.bad{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+.card{background:white;border:1px solid var(--line);border-radius:22px;box-shadow:0 12px 32px rgba(127,29,29,.08);padding:18px}
+.kpi{position:relative;overflow:hidden}
+.kpi:after{content:"";position:absolute;right:-35px;top:-40px;width:125px;height:125px;border-radius:50%;background:rgba(220,38,38,.08)}
+.kpi-title{color:#991b1b;font-size:13px;text-transform:uppercase;letter-spacing:.06em;font-weight:900}
+.kpi-value{font-size:30px;font-weight:950;margin-top:8px;position:relative;z-index:1}
+.red-t{color:var(--red2)} .green-t{color:var(--ok)} .dark-t{color:#111827} .warn-t{color:#b45309}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tab{background:white;border:1px solid var(--line);color:#991b1b}
+.tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:white}
+.layout{display:grid;grid-template-columns:370px 1fr;gap:16px}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.box{background:#fff7f7;border:1px solid var(--line);border-radius:16px;padding:14px}
+.box span{color:var(--muted);font-size:13px;font-weight:800} .box strong{display:block;font-size:21px;margin-top:5px}
+.money-edit,.total-edit,.text-edit{padding:8px;border:1px solid var(--line);border-radius:10px;font-weight:800}
+.money-edit{width:130px} .total-edit{width:155px} .text-edit{min-width:190px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{background:#fff1f2;color:#7f1d1d;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+tr:hover td{background:#fffafa}
+.badge{border-radius:999px;padding:5px 9px;font-weight:900;font-size:12px;display:inline-block}
+.paid{background:#dcfce7;color:#166534} .pending{background:#fef3c7;color:#92400e}
+.bar{height:24px;border-radius:999px;overflow:hidden;background:#fee2e2;border:1px solid #fecaca}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#f59e0b,#dc2626);color:white;text-align:center;font-size:12px;font-weight:900;line-height:24px;min-width:44px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.help{font-size:13px;color:var(--muted);line-height:1.4}
+.print-only{display:none}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.income-row{background:#fff7f7}
+.income-note{font-size:13px;color:var(--muted);margin:8px 0 0}
+@media(max-width:980px){.kpis,.layout,.mini{grid-template-columns:1fr}}
+@media print{
+  header,.tabs,.no-print,.layout>.card:first-child,button,input,select,label,.toolbar,#notice{display:none!important}
+  .print-only{display:inline!important}
+  body{background:white}
+  main{max-width:100%;margin:0;padding:0}
+  main:before{content:'Informe mensual Gastos F.L.B 2026';display:block;text-align:center;font-size:24px;font-weight:950;margin-bottom:15px;color:#7f1d1d}
+  .card{box-shadow:none;border:1px solid #ddd;border-radius:8px;page-break-inside:avoid}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  th{background:#f5f5f5!important;color:#111}
+}
+</style>
+</head>
+<body>
+<section id="login" class="login">
+  <div class="login-card">
+    <div class="logo">FLB</div>
+    <h1>Gastos F.L.B 2026 PRO</h1>
+    <p class="sub">Sistema privado de control financiero mensual</p>
+    <label>Usuario</label><input id="user" placeholder="Ingresa tu usuario" autocomplete="username" />
+    <label>Contraseña</label><input id="pass" type="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()" />
+    <button class="primary full" onclick="login()">Ingresar</button>
+  </div>
+</section>
+
+<section id="app" class="app">
+<header>
+  <div class="header-inner">
+    <div><h1>Dashboard Gastos F.L.B 2026</h1><p>Resumen mensual, edición rápida, respaldo e impresión profesional</p></div>
+    <button class="danger no-print" onclick="logout()">Cerrar sesión</button>
+  </div>
+</header>
+<main>
+  <div id="notice" class="notice ok"></div>
+
+  <section class="kpis">
+    <div class="card kpi"><div class="kpi-title">Ingresos del mes</div><div id="kpiIngresos" class="kpi-value green-t">$0</div></div>
+    <div class="card kpi"><div class="kpi-title">Gastos del mes</div><div id="kpiGastos" class="kpi-value red-t">$0</div></div>
+    <div class="card kpi"><div class="kpi-title">Saldo del mes</div><div id="kpiSaldo" class="kpi-value dark-t">$0</div></div>
+    <div class="card kpi"><div class="kpi-title">% usado del mes</div><div id="kpiUso" class="kpi-value warn-t">0%</div></div>
+  </section>
+
+  <div class="card">
+    <div class="section-title">
+      <h2 id="tituloResumenMes">Resumen mensual</h2>
+      <div class="toolbar no-print">
+        <button class="light" onclick="window.print()">Imprimir informe</button>
+        <button class="light" onclick="exportarCSV()">Exportar CSV</button>
+        <button class="dark" onclick="exportarJSON()">Exportar JSON</button>
+        <button class="primary" onclick="document.getElementById('importJson').click()">Importar JSON</button>
+        <input id="importJson" type="file" accept=".json,application/json" style="display:none" onchange="importarJSON(event)">
+      </div>
+    </div>
+    <div class="mini">
+      <div class="box"><span>Total ingresos mes</span><strong id="miniIngresos">$0</strong></div>
+      <div class="box"><span>Porcentaje usado</span><strong id="miniPorcentaje">0%</strong></div>
+      <div class="box"><span>Saldo disponible</span><strong id="miniSaldo">$0</strong></div>
+    </div>
+    <div class="bar"><span id="barra">0%</span></div>
+  </div>
+
+  <div class="tabs no-print" id="tabs"></div>
+
+  <section class="layout">
+    <div class="card no-print">
+      <h2>Agregar movimiento</h2>
+      <label>Mes</label><select id="mesInput"></select>
+      <label>Artículo / detalle</label><input id="articuloInput" placeholder="Ej: electricidad, comida, bencina" />
+      <label>Monto</label><input id="montoInput" type="number" placeholder="Ej: 25000" />
+      <label>Estado</label><select id="estadoInput"><option>PAGADO</option><option>PENDIENTE</option></select>
+      <button class="primary full" onclick="agregarGasto()">Agregar gasto</button>
+
+      <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+      <h2>Agregar ingreso extra</h2>
+      <p class="help">Suma bonos, trabajos extras, ventas u otros ingresos al mes seleccionado.</p>
+      <label>Mes</label><select id="mesIngresoInput"></select>
+      <label>Detalle del ingreso</label><input id="detalleIngresoInput" placeholder="Ej: bono, trabajo extra, venta" />
+      <label>Monto ingreso extra</label><input id="montoIngresoInput" type="number" placeholder="Ej: 50000" />
+      <button class="green full" onclick="agregarIngresoExtra()">Agregar ingreso extra</button>
+
+      <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+      <h2>Crear mes</h2>
+      <p class="help">Permite agregar nuevos meses sin tocar el código.</p>
+      <label>Nombre del mes</label><input id="nuevoMesInput" placeholder="Ej: Junio" />
+      <label>Total ingresos del mes</label><input id="nuevoMesTotalInput" type="number" placeholder="Ej: 950000" />
+      <button class="light full" onclick="crearMes()">Crear nuevo mes</button>
+
+      <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+      <button class="danger full" onclick="reiniciarSistema()">Reiniciar sistema</button>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><h2 id="tituloMes">Gastos del mes</h2></div>
+      <div class="mini">
+        <div class="box"><span>Total mes</span><strong id="totalMes">$0</strong></div>
+        <div class="box"><span>Gastos mes</span><strong id="gastoMes">$0</strong></div>
+        <div class="box"><span>Saldo mes</span><strong id="saldoMes">$0</strong></div>
+      </div>
+      <h3>Ingresos extras del mes</h3>
+      <p class="income-note">Estos ingresos se suman al total mensual automáticamente.</p>
+      <table>
+        <thead><tr><th>Detalle</th><th>Monto</th><th class="no-print">Acción</th></tr></thead>
+        <tbody id="tablaIngresosExtra"></tbody>
+      </table>
+
+      <h3 style="margin-top:18px">Gastos registrados</h3>
+      <table>
+        <thead><tr><th>Artículo</th><th>Cantidad</th><th>Estado</th><th class="no-print">Acción</th></tr></thead>
+        <tbody id="tablaMes"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:16px">
+    <h2>Resumen por mes</h2>
+    <table>
+      <thead><tr><th>Mes</th><th>Ingresos base</th><th>Ingresos extras</th><th>Total ingresos mes</th><th>Total gastos</th><th>Saldo</th><th>% usado</th></tr></thead>
+      <tbody id="tablaResumen"></tbody>
+    </table>
+  </section>
+</main>
+</section>
+
+<script>
+const DATA_INICIAL = {"months": {"Enero": {"meta": {"suma_gastos": 825178.0, "saldo": 759715.0, "total_mes": 1584893.0, "diezmo": 117500.0}, "expenses": [{"articulo": "Electricidad", "cantidad": 69700.0, "estado": "PAGADO"}, {"articulo": "mundo movil", "cantidad": 9980.0, "estado": "PAGADO"}, {"articulo": "internet", "cantidad": 15990.0, "estado": "PAGADO"}, {"articulo": "Comida Mes", "cantidad": 330028.0, "estado": "PAGADO"}, {"articulo": "Agua", "cantidad": 0.0, "estado": ""}, {"articulo": "diezmo", "cantidad": 160000.0, "estado": "PAGADO"}, {"articulo": "bencina", "cantidad": 40000.0, "estado": "PAGADO"}, {"articulo": "Reposicion voluntarios", "cantidad": 55000.0, "estado": "PAGADO"}, {"articulo": "Pañales", "cantidad": 47470.0, "estado": "PAGADO"}, {"articulo": "Pago vecina", "cantidad": 0.0, "estado": ""}, {"articulo": "extras", "cantidad": 87010.0, "estado": "PAGADO"}, {"articulo": "Pago terreno", "cantidad": 10000.0, "estado": "PAGADO"}]}, "Febrero": {"meta": {"suma_gastos": 939868.0, "saldo": 104555.0, "total_mes": 1044423.0, "diezmo": 117500.0}, "expenses": [{"articulo": "Electricidad", "cantidad": 74400.0, "estado": "PAGADO"}, {"articulo": "mundo movil", "cantidad": 9980.0, "estado": "PAGADO"}, {"articulo": "internet", "cantidad": 15990.0, "estado": "PAGADO"}, {"articulo": "Comida Mes", "cantidad": 333306.0, "estado": "PAGADO"}, {"articulo": "Agua", "cantidad": 38300.0, "estado": "PAGADO"}, {"articulo": "diezmo", "cantidad": 109500.0, "estado": "PAGADO"}, {"articulo": "bencina", "cantidad": 0.0, "estado": "PAGADO"}, {"articulo": "Reposicion voluntarios", "cantidad": 20000.0, "estado": "PAGADO"}, {"articulo": "Pañales", "cantidad": 39970.0, "estado": "PAGADO"}, {"articulo": "Pago vecina", "cantidad": 70000.0, "estado": "PAGADO"}, {"articulo": "extras", "cantidad": 179109.0, "estado": "PAGADO"}, {"articulo": "Pago terreno", "cantidad": 10000.0, "estado": "PAGADO"}, {"articulo": "Pago zapatillas cuota 1", "cantidad": 21323.0, "estado": "PAGADO"}, {"articulo": "GAS", "cantidad": 17990.0, "estado": ""}]}, "Marzo": {"meta": {"suma_gastos": 583486.0, "saldo": 370059.0, "total_mes": 953545.0, "diezmo": 0.0}, "expenses": [{"articulo": "Electricidad", "cantidad": 23300.0, "estado": "PAGADO"}, {"articulo": "mundo movil", "cantidad": 9980.0, "estado": "PAGADO"}, {"articulo": "internet", "cantidad": 15990.0, "estado": "PAGADO"}, {"articulo": "Comida Mes", "cantidad": 296193.0, "estado": "PAGADO"}, {"articulo": "Agua", "cantidad": 0.0, "estado": ""}, {"articulo": "diezmo", "cantidad": 101700.0, "estado": "PAGADO"}, {"articulo": "bencina", "cantidad": 40000.0, "estado": "PAGADO"}, {"articulo": "Reposicion voluntarios", "cantidad": 0.0, "estado": ""}, {"articulo": "Pañales", "cantidad": 0.0, "estado": ""}, {"articulo": "Pago vecina", "cantidad": 65000.0, "estado": "PAGADO"}, {"articulo": "extras", "cantidad": 0.0, "estado": ""}, {"articulo": "Pago terreno", "cantidad": 10000.0, "estado": "PAGADO"}, {"articulo": "Pago zapatillas cuota 2", "cantidad": 21323.0, "estado": "PAGADO"}, {"articulo": "GAS", "cantidad": 0.0, "estado": ""}]}, "Abril": {"meta": {"suma_gastos": 487170.0, "saldo": 362023.0, "total_mes": 849193.0, "diezmo": 88000.0}, "expenses": [{"articulo": "Electricidad", "cantidad": 36800.0, "estado": "PAGADO"}, {"articulo": "WOM movil", "cantidad": 8563.0, "estado": "PAGADO"}, {"articulo": "internet", "cantidad": 15990.0, "estado": "PAGADO"}, {"articulo": "Comida Mes", "cantidad": 0.0, "estado": ""}, {"articulo": "Agua", "cantidad": 35600.0, "estado": "PAGADO"}, {"articulo": "diezmo", "cantidad": 88000.0, "estado": "PAGADO"}, {"articulo": "bencina", "cantidad": 40000.0, "estado": "PAGADO"}, {"articulo": "Reposicion voluntarios", "cantidad": 0.0, "estado": ""}, {"articulo": "Pañales", "cantidad": 0.0, "estado": ""}, {"articulo": "Pago vecina", "cantidad": 65000.0, "estado": "PAGADO"}, {"articulo": "extras", "cantidad": 98094.0, "estado": "PAGADO"}, {"articulo": "Pago terreno", "cantidad": 10000.0, "estado": "PAGADO"}, {"articulo": "Pago zapatillas cuota 3", "cantidad": 21323.0, "estado": "PAGADO"}, {"articulo": "GAS", "cantidad": 25000.0, "estado": "PAGADO"}, {"articulo": "Pago regalo", "cantidad": 22900.0, "estado": "PAGADO"}, {"articulo": "Chat gpt", "cantidad": 19900.0, "estado": "PAGADO"}]}, "Mayo": {"meta": {"suma_gastos": 795672.0, "saldo": 117102.0, "total_mes": 912774.0, "diezmo": 97800.0}, "expenses": [{"articulo": "Electricidad", "cantidad": 67300.0, "estado": "PAGADO"}, {"articulo": "WOM movil", "cantidad": 19980.0, "estado": "PAGADO"}, {"articulo": "internet", "cantidad": 15990.0, "estado": "PAGADO"}, {"articulo": "Comida Mes", "cantidad": 352898.0, "estado": "PAGADO"}, {"articulo": "Agua", "cantidad": 20500.0, "estado": "PAGADO"}, {"articulo": "diezmo", "cantidad": 97800.0, "estado": "PAGADO"}, {"articulo": "bencina", "cantidad": 40000.0, "estado": "PAGADO"}, {"articulo": "Reposicion voluntarios", "cantidad": 0.0, "estado": ""}, {"articulo": "Pañales", "cantidad": 26990.0, "estado": ""}, {"articulo": "Pago vecina", "cantidad": 65000.0, "estado": "PAGADO"}, {"articulo": "extras", "cantidad": 79214.0, "estado": "PAGADO"}, {"articulo": "Pago terreno", "cantidad": 10000.0, "estado": "PAGADO"}, {"articulo": "GAS", "cantidad": 0.0, "estado": "PAGADO"}]}}, "incomes": [{"nombre": "Eduardo", "cantidad": 843072.0}, {"nombre": "Jemima", "cantidad": 0.0}, {"nombre": "Otros", "cantidad": 0.0}], "ahorros": [{"detalle": "casa", "cantidad": 0.0}, {"detalle": "hija", "cantidad": 20000.0}]};
+let data = JSON.parse(localStorage.getItem('flb_finanzas_2026_pro')) || DATA_INICIAL;
+let mesActual = Object.keys(data.months)[0];
+const CLP = new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0});
+
+function login(){
+  const u=document.getElementById('user').value.trim();
+  const p=document.getElementById('pass').value.trim();
+  if(u==='Admin'&&p==='admin123'){sessionStorage.setItem('flb_login','ok');mostrarApp();}
+  else alert('Usuario o contraseña incorrecta.');
+}
+function logout(){sessionStorage.removeItem('flb_login');location.reload();}
+function mostrarApp(){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';render();}
+if(sessionStorage.getItem('flb_login')==='ok') mostrarApp();
+
+function save(){localStorage.setItem('flb_finanzas_2026_pro',JSON.stringify(data));}
+function sum(arr,field){return arr.reduce((a,b)=>a+(Number(b[field])||0),0)}
+function asegurarEstructura(){
+  Object.keys(data.months).forEach(m=>{
+    if(!Array.isArray(data.months[m].ingresosExtras)) data.months[m].ingresosExtras=[];
+    if(typeof data.months[m].meta.ingresos_base==='undefined') data.months[m].meta.ingresos_base=Number(data.months[m].meta.total_mes)||0;
+  });
+}
+asegurarEstructura();
+function totalGastosMes(m){return sum(data.months[m].expenses,'cantidad')}
+function totalIngresosExtrasMes(m){return sum(data.months[m].ingresosExtras||[],'monto')}
+function ingresosBaseMes(m){return Number(data.months[m].meta.ingresos_base ?? data.months[m].meta.total_mes)||0}
+function totalMes(m){return ingresosBaseMes(m)+totalIngresosExtrasMes(m)}
+function pctUso(m){const total=totalMes(m); return total>0?(totalGastosMes(m)/total*100):0}
+function render(){renderTabs();renderDashboard();renderMes();renderResumen();}
+
+function renderTabs(){
+  const tabs=document.getElementById('tabs'), mesInput=document.getElementById('mesInput'), mesIngresoInput=document.getElementById('mesIngresoInput');
+  tabs.innerHTML=''; mesInput.innerHTML=''; if(mesIngresoInput) mesIngresoInput.innerHTML='';
+  Object.keys(data.months).forEach(m=>{
+    const b=document.createElement('button'); b.className='tab '+(m===mesActual?'active':''); b.textContent=m; b.onclick=()=>{mesActual=m;render();}; tabs.appendChild(b);
+    const op=document.createElement('option'); op.value=m; op.textContent=m; mesInput.appendChild(op);
+    if(mesIngresoInput){const op2=document.createElement('option'); op2.value=m; op2.textContent=m; mesIngresoInput.appendChild(op2);}
+  });
+  mesInput.value=mesActual; if(mesIngresoInput) mesIngresoInput.value=mesActual;
+}
+
+function renderDashboard(){
+  const ingresos=totalMes(mesActual), gastos=totalGastosMes(mesActual), saldo=ingresos-gastos, pct=pctUso(mesActual);
+  document.getElementById('kpiIngresos').textContent=CLP.format(ingresos);
+  document.getElementById('kpiGastos').textContent=CLP.format(gastos);
+  document.getElementById('kpiSaldo').textContent=CLP.format(saldo);
+  document.getElementById('kpiUso').textContent=pct.toFixed(1)+'%';
+  document.getElementById('tituloResumenMes').textContent='Resumen del mes - '+mesActual;
+  document.getElementById('miniIngresos').textContent=CLP.format(ingresos);
+  document.getElementById('miniPorcentaje').textContent=pct.toFixed(1)+'%';
+  document.getElementById('miniSaldo').textContent=CLP.format(saldo);
+  const barra=document.getElementById('barra'); barra.style.width=Math.min(pct,100)+'%'; barra.textContent=pct.toFixed(1)+'% usado';
+  const notice=document.getElementById('notice');
+  if(saldo<0){notice.className='notice bad';notice.textContent='Alerta crítica en '+mesActual+': los gastos superan los ingresos del mes.';}
+  else if(saldo<150000){notice.className='notice warn';notice.textContent='Alerta en '+mesActual+': el saldo mensual está bajo.';}
+  else{notice.className='notice ok';notice.textContent='Estado saludable en '+mesActual+': saldo mensual controlado.';}
+}
+
+function renderMes(){
+  const m=data.months[mesActual], gasto=totalGastosMes(mesActual), total=totalMes(mesActual);
+  document.getElementById('tituloMes').textContent='Gastos mensuales - '+mesActual;
+  document.getElementById('totalMes').textContent=CLP.format(total);
+  renderIngresosExtraMes();
+  document.getElementById('gastoMes').textContent=CLP.format(gasto);
+  document.getElementById('saldoMes').textContent=CLP.format(total-gasto);
+  const tb=document.getElementById('tablaMes'); tb.innerHTML='';
+  if(!m.expenses.length){tb.innerHTML='<tr><td colspan="4">No hay gastos registrados para este mes.</td></tr>';return;}
+  m.expenses.forEach((e,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input class="text-edit no-print" value="${escapeAttr(e.articulo)}" onchange="actualizarArticulo('${mesActual}',${i},this.value)"><span class="print-only">${escapeHtml(e.articulo)}</span></td>
+      <td><input class="money-edit no-print" type="number" min="0" value="${Number(e.cantidad)||0}" onchange="actualizarMontoGasto('${mesActual}',${i},this.value)" /><span class="print-only">${CLP.format(e.cantidad)}</span></td>
+      <td><select class="no-print" onchange="actualizarEstadoGasto('${mesActual}',${i},this.value)"><option ${e.estado==='PAGADO'?'selected':''}>PAGADO</option><option ${e.estado!=='PAGADO'?'selected':''}>PENDIENTE</option></select><span class="badge ${e.estado==='PAGADO'?'paid':'pending'} print-only">${e.estado||'PENDIENTE'}</span></td>
+      <td class="no-print"><button class="danger" onclick="eliminarGasto('${mesActual}',${i})">Eliminar</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function renderIngresosExtraMes(){
+  const tb=document.getElementById('tablaIngresosExtra');
+  if(!tb) return;
+  const lista=data.months[mesActual].ingresosExtras||[];
+  tb.innerHTML='';
+  if(!lista.length){tb.innerHTML='<tr><td colspan="3">No hay ingresos extras registrados para este mes.</td></tr>';return;}
+  lista.forEach((ingreso,i)=>{
+    const tr=document.createElement('tr');
+    tr.className='income-row';
+    tr.innerHTML=`<td><input class="text-edit no-print" value="${escapeAttr(ingreso.detalle)}" onchange="actualizarIngresoExtraDetalle('${mesActual}',${i},this.value)"><span class="print-only">${escapeHtml(ingreso.detalle)}</span></td>
+      <td><input class="money-edit no-print" type="number" min="0" value="${Number(ingreso.monto)||0}" onchange="actualizarIngresoExtraMonto('${mesActual}',${i},this.value)"><span class="print-only">${CLP.format(ingreso.monto)}</span></td>
+      <td class="no-print"><button class="danger" onclick="eliminarIngresoExtra('${mesActual}',${i})">Eliminar</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function renderResumen(){
+  const tb=document.getElementById('tablaResumen'); tb.innerHTML='';
+  Object.keys(data.months).forEach(m=>{
+    const base=ingresosBaseMes(m), extras=totalIngresosExtrasMes(m), total=totalMes(m), gasto=totalGastosMes(m), saldo=total-gasto, pct=total>0?(gasto/total*100):0;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${m}</b></td><td><input class="total-edit no-print" type="number" min="0" value="${base}" onchange="actualizarTotalMes('${m}',this.value)" /><span class="print-only">${CLP.format(base)}</span></td><td>${CLP.format(extras)}</td><td>${CLP.format(total)}</td><td>${CLP.format(gasto)}</td><td>${CLP.format(saldo)}</td><td>${pct.toFixed(1)}%</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function actualizarArticulo(m,i,valor){data.months[m].expenses[i].articulo=valor.trim()||'Sin detalle';save();renderMes();}
+function actualizarMontoGasto(m,i,valor){data.months[m].expenses[i].cantidad=Number(valor)||0;save();renderDashboard();renderMes();renderResumen();}
+function actualizarEstadoGasto(m,i,valor){data.months[m].expenses[i].estado=valor;save();renderMes();}
+function actualizarTotalMes(m,valor){data.months[m].meta.ingresos_base=Number(valor)||0;data.months[m].meta.total_mes=Number(valor)||0;save();renderDashboard();renderMes();renderResumen();}
+function agregarGasto(){
+  const m=document.getElementById('mesInput').value, art=document.getElementById('articuloInput').value.trim(), monto=Number(document.getElementById('montoInput').value)||0, estado=document.getElementById('estadoInput').value;
+  if(!art||monto<=0) return alert('Ingresa artículo y monto válido.');
+  data.months[m].expenses.push({articulo:art,cantidad:monto,estado});
+  document.getElementById('articuloInput').value=''; document.getElementById('montoInput').value='';
+  mesActual=m; save(); render();
+}
+function agregarIngresoExtra(){
+  const m=document.getElementById('mesIngresoInput').value;
+  const detalle=document.getElementById('detalleIngresoInput').value.trim();
+  const monto=Number(document.getElementById('montoIngresoInput').value)||0;
+  if(!detalle||monto<=0) return alert('Ingresa detalle y monto válido para el ingreso extra.');
+  if(!Array.isArray(data.months[m].ingresosExtras)) data.months[m].ingresosExtras=[];
+  data.months[m].ingresosExtras.push({detalle,monto,fecha:new Date().toLocaleDateString('es-CL')});
+  document.getElementById('detalleIngresoInput').value='';
+  document.getElementById('montoIngresoInput').value='';
+  mesActual=m; save(); render();
+}
+function actualizarIngresoExtraDetalle(m,i,valor){data.months[m].ingresosExtras[i].detalle=valor.trim()||'Ingreso extra';save();renderIngresosExtraMes();renderResumen();}
+function actualizarIngresoExtraMonto(m,i,valor){data.months[m].ingresosExtras[i].monto=Number(valor)||0;save();renderDashboard();renderMes();renderResumen();}
+function eliminarIngresoExtra(m,i){if(!confirm('¿Eliminar este ingreso extra?'))return;data.months[m].ingresosExtras.splice(i,1);save();render();}
+function eliminarGasto(m,i){if(!confirm('¿Eliminar este gasto?'))return;data.months[m].expenses.splice(i,1);save();render();}
+function crearMes(){
+  const nombre=document.getElementById('nuevoMesInput').value.trim(); const total=Number(document.getElementById('nuevoMesTotalInput').value)||0;
+  if(!nombre)return alert('Ingresa el nombre del mes.');
+  if(data.months[nombre])return alert('Ese mes ya existe.');
+  data.months[nombre]={meta:{suma_gastos:0,saldo:total,total_mes:total,ingresos_base:total,diezmo:0},expenses:[],ingresosExtras:[]};
+  mesActual=nombre; document.getElementById('nuevoMesInput').value=''; document.getElementById('nuevoMesTotalInput').value=''; save(); render();
+}
+function exportarJSON(){download('gastos_flb_2026_respaldo.json',JSON.stringify(data,null,2),'application/json');}
+function exportarCSV(){
+  let csv='Tipo,Mes,Detalle,Cantidad,Estado\n';
+  Object.keys(data.months).forEach(m=>{
+    (data.months[m].ingresosExtras||[]).forEach(e=>csv+=`"Ingreso extra","${m}","${String(e.detalle).replaceAll('"','""')}","${e.monto}",""\n`);
+    data.months[m].expenses.forEach(e=>csv+=`"Gasto","${m}","${String(e.articulo).replaceAll('"','""')}","${e.cantidad}","${e.estado||''}"\n`);
+  });
+  download('gastos_flb_2026_movimientos.csv',csv,'text/csv;charset=utf-8;');
+}
+function importarJSON(event){
+  const file=event.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const imported=JSON.parse(e.target.result);
+      if(!imported.months)throw new Error('El archivo no tiene estructura válida.');
+      if(!confirm('¿Importar respaldo? Se reemplazarán los datos actuales.'))return;
+      data=imported; asegurarEstructura(); mesActual=Object.keys(data.months)[0]; save(); render(); alert('Respaldo importado correctamente.');
+    }catch(err){alert('Error al importar JSON: '+err.message)} finally{event.target.value=''}
+  };
+  reader.readAsText(file,'UTF-8');
+}
+function reiniciarSistema(){if(!confirm('¿Reiniciar todos los datos al estado inicial?'))return;localStorage.removeItem('flb_finanzas_2026_pro');data=JSON.parse(JSON.stringify(DATA_INICIAL));asegurarEstructura();mesActual=Object.keys(data.months)[0];render();}
+function download(filename,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function escapeAttr(s){return escapeHtml(s).replace(/"/g,'&quot;');}
+</script>
+</body>
+</html>
